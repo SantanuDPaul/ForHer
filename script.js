@@ -115,6 +115,10 @@ class Paper {
 
       if (!this.holdingPaper) return;
 
+      if (this.holdingPaper && !musicStarted) {
+        startMusic();
+      }
+
       e.preventDefault();
 
       this.pointerX = e.clientX;
