@@ -1,30 +1,30 @@
 const petalContainer = document.getElementById("floatingPetals");
 
-function createPetal(){
+function createPetal() {
 
-    if(!petalContainer) return;
+  if (!petalContainer) return;
 
-    const petal = document.createElement("div");
+  const petal = document.createElement("div");
 
-    petal.className = "floating-petal";
+  petal.className = "floating-petal";
 
-    petal.style.left = Math.random()*100 + "vw";
+  petal.style.left = Math.random() * 100 + "vw";
 
-    petal.style.animationDuration = (10 + Math.random()*8) + "s";
+  petal.style.animationDuration = (10 + Math.random() * 8) + "s";
 
-    petal.style.animationDelay = Math.random()*2 + "s";
+  petal.style.animationDelay = Math.random() * 2 + "s";
 
-    petal.style.transform = `scale(${0.6 + Math.random()*0.8})`;
+  petal.style.transform = `scale(${0.6 + Math.random() * 0.8})`;
 
-    petalContainer.appendChild(petal);
+  petalContainer.appendChild(petal);
 
-    setTimeout(()=>{
-        petal.remove();
-    },18000);
+  setTimeout(() => {
+    petal.remove();
+  }, 18000);
 
 }
 
-setInterval(createPetal,1800);
+setInterval(createPetal, 1800);
 
 const bgMusic = document.getElementById("bgMusic");
 
@@ -127,6 +127,10 @@ class Paper {
       paper.style.zIndex = highestZ;
       highestZ++;
 
+      if (paper.classList.contains("image")) {
+        paper.style.boxShadow = "0 22px 45px rgba(0,0,0,.35)";
+      }
+
       this.prevPointerX = e.clientX;
       this.prevPointerY = e.clientY;
     });
@@ -159,14 +163,17 @@ class Paper {
      rotateZ(${this.rotation}deg)`;
     });
 
-    document.addEventListener('pointerup', (e) => {
+    document.addEventListener('pointerup', () => {
 
       if (!this.holdingPaper) return;
 
       this.holdingPaper = false;
 
-    });
+      if (paper.classList.contains("image")) {
+        paper.style.boxShadow = "0 12px 28px rgba(0,0,0,.22)";
+      }
 
+    });
 
   }
 
