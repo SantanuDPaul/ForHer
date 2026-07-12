@@ -1,3 +1,36 @@
+
+document.addEventListener(
+  "pointerdown",
+  () => {
+    if (musicStarted) return;
+
+    musicStarted = true;
+
+    bgMusic.volume = 0;
+
+    bgMusic.play()
+      .then(() => {
+        let volume = 0;
+
+        const fade = setInterval(() => {
+          volume += 0.02;
+
+          if (volume >= 0.4) {
+            volume = 0.4;
+            clearInterval(fade);
+          }
+
+          bgMusic.volume = volume;
+        }, 100);
+      })
+      .catch(err => console.error(err));
+  },
+  { once: true }
+);
+
+
+
+
 const heartContainer = document.getElementById("floatingHearts");
 
 function createHeart() {
@@ -69,26 +102,26 @@ class Paper {
 
       this.holdingPaper = true;
       
-      if (!musicStarted) {
-        
-        musicStarted = true;
-        
-        bgMusic.volume = 0;
-        
-        bgMusic.play().catch(() => {});
-        
-        let volume = 0;
-        
-        const fadeIn = setInterval(() => {
-          volume += 0.02;
-          if (volume >= 0.4) {
-            volume = 0.4;
-            clearInterval(fadeIn);
-          }
-          bgMusic.volume = volume;
-        }, 100);
-        
-      }
+        // if (!musicStarted) {
+          
+        //   musicStarted = true;
+          
+        //   bgMusic.volume = 0;
+          
+        //   bgMusic.play().catch(() => {});
+          
+        //   let volume = 0;
+          
+        //   const fadeIn = setInterval(() => {
+        //     volume += 0.02;
+        //     if (volume >= 0.4) {
+        //       volume = 0.4;
+        //       clearInterval(fadeIn);
+        //     }
+        //     bgMusic.volume = volume;
+        //   }, 100);
+          
+        // }
       
       e.preventDefault();
       
