@@ -65,9 +65,27 @@ class Paper {
 
         musicStarted = true;
 
-        bgMusic.volume = 0.4;
+        bgMusic.volume = 0;
 
         bgMusic.play();
+
+        let volume = 0;
+
+        const fade = setInterval(() => {
+
+          volume += 0.02;
+
+          if (volume >= 0.4) {
+
+            volume = 0.4;
+
+            clearInterval(fade);
+
+          }
+
+          bgMusic.volume = volume;
+
+        }, 100);
 
       }
 

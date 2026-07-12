@@ -2,16 +2,25 @@
 
 @keyframes heartbeat {
 
-  0% {
-    scale: 1;
-  }
-
-  50% {
-    scale: 1.08;
-  }
-
+  0%,
   100% {
-    scale: 1;
+    transform: scale(1);
+  }
+
+  14% {
+    transform: scale(1.12);
+  }
+
+  28% {
+    transform: scale(1);
+  }
+
+  42% {
+    transform: scale(1.08);
+  }
+
+  70% {
+    transform: scale(1);
   }
 
 }
@@ -70,7 +79,7 @@ body {
 
   cursor: pointer;
 
-  animation: heartbeat 2s infinite;
+  animation: heartbeat 1.8s ease-in-out infinite;
 
 }
 
@@ -121,7 +130,7 @@ p {
   position: fixed;
   inset: 0;
 
-  background: rgba(0,0,0,.75);
+  background: rgba(0, 0, 0, .75);
 
   display: flex;
 
@@ -136,11 +145,11 @@ p {
   z-index: 99999;
 }
 
-#letterModal.show{
+#letterModal.show {
 
-  opacity:1;
+  opacity: 1;
 
-  visibility:visible;
+  visibility: visible;
 
 }
 
@@ -164,21 +173,21 @@ p {
   scrollbar-width: none;
   -ms-overflow-style: none;
 
-  opacity:0;
+  opacity: 0;
 
-transform:translateY(40px) scale(.96);
+  transform: translateY(40px) scale(.96);
 
-transition:
-opacity .45s ease,
-transform .45s ease;
+  transition:
+    opacity .45s ease,
+    transform .45s ease;
 
 }
 
-#letterModal.show .letter{
+#letterModal.show .letter {
 
-    opacity:1;
+  opacity: 1;
 
-    transform:translateY(0) scale(1);
+  transform: translateY(0) scale(1);
 
 }
 
