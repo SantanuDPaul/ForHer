@@ -1,32 +1,30 @@
-const heartContainer = document.getElementById("floatingHearts");
+const petalContainer = document.getElementById("floatingPetals");
 
-function createHeart() {
+function createPetal(){
 
-  if (!heartContainer) return;
+    if(!petalContainer) return;
 
-  const heart = document.createElement("div");
+    const petal = document.createElement("div");
 
-  heart.className = "floating-heart";
+    petal.className = "floating-petal";
 
-  heart.innerHTML = "🤍";
+    petal.style.left = Math.random()*100 + "vw";
 
-  heart.style.left = Math.random() * 100 + "vw";
+    petal.style.animationDuration = (10 + Math.random()*8) + "s";
 
-  heart.style.animationDuration = 10 + Math.random() * 8 + "s";
+    petal.style.animationDelay = Math.random()*2 + "s";
 
-  heart.style.fontSize = 10 + Math.random() * 8 + "px";
+    petal.style.transform = `scale(${0.6 + Math.random()*0.8})`;
 
-  heartContainer.appendChild(heart);
+    petalContainer.appendChild(petal);
 
-  setTimeout(() => {
-
-    heart.remove();
-
-  }, 18000);
+    setTimeout(()=>{
+        petal.remove();
+    },18000);
 
 }
 
-setInterval(createHeart, 4000);
+setInterval(createPetal,1800);
 
 const bgMusic = document.getElementById("bgMusic");
 
@@ -42,7 +40,7 @@ function fadeMusic(targetVolume = 0.4, duration = 2000) {
     const progress = Math.min((currentTime - startTime) / duration, 1);
 
     const eased = progress * progress;
-    
+
     bgMusic.volume = targetVolume * eased;
 
     if (progress < 1) {
@@ -60,6 +58,16 @@ function startMusic() {
   if (musicStarted) return;
 
   musicStarted = true;
+
+  const intro = document.getElementById("introOverlay");
+
+  if (intro) {
+    intro.classList.add("hide");
+
+    setTimeout(() => {
+      intro.remove();
+    }, 800);
+  }
 
   bgMusic.volume = 0;
 
