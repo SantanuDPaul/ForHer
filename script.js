@@ -34,45 +34,48 @@ let musicStarted = false;
 
 function fadeMusic(targetVolume = 0.4, duration = 2000) {
 
-    const startTime = performance.now();
-    bgMusic.volume = 0;
+  const startTime = performance.now();
+  bgMusic.volume = 0;
 
-    function update(currentTime) {
+  function update(currentTime) {
 
-        const progress = Math.min((currentTime - startTime) / duration, 1);
+    const progress = Math.min((currentTime - startTime) / duration, 1);
 
-        bgMusic.volume = targetVolume * progress;
+    const eased = progress * progress;
+    
+    bgMusic.volume = targetVolume * eased;
 
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        }
-
+    if (progress < 1) {
+      requestAnimationFrame(update);
     }
 
-    requestAnimationFrame(update);
+  }
+
+  requestAnimationFrame(update);
 
 }
 
 function startMusic() {
 
-    if (musicStarted) return;
+  if (musicStarted) return;
 
-    musicStarted = true;
+  musicStarted = true;
 
-    bgMusic.volume = 0;
+  bgMusic.volume = 0;
 
-    bgMusic.play().then(() => {
+  bgMusic.play().catch(console.error);
 
-        // Give mobile browsers a moment to actually start decoding audio
-        setTimeout(() => {
-            fadeMusic();
-        }, 150);
-
-    }).catch(console.error);
+  bgMusic.addEventListener(
+    "playing",
+    () => {
+      fadeMusic();
+    },
+    { once: true }
+  );
 
 }
 
-document.addEventListener("pointerup",startMusic,{ once: true, passive: true });
+document.addEventListener("pointerup", startMusic, { once: true, passive: true });
 
 let highestZ = 1;
 
@@ -110,9 +113,9 @@ class Paper {
       if (paper.classList.contains('heart')) return;
 
       this.holdingPaper = true;
-      
+
       e.preventDefault();
-      
+
       paper.style.zIndex = highestZ;
       highestZ++;
 
