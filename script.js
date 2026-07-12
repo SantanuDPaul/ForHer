@@ -68,19 +68,17 @@ class Paper {
       if (paper.classList.contains('heart')) return;
 
       this.holdingPaper = true;
-
-      e.preventDefault();
-
+      
       if (!musicStarted) {
-
+        
         musicStarted = true;
-
+        
         bgMusic.volume = 0;
-
+        
         bgMusic.play().catch(() => {});
-
+        
         let volume = 0;
-
+        
         const fadeIn = setInterval(() => {
           volume += 0.02;
           if (volume >= 0.4) {
@@ -89,9 +87,11 @@ class Paper {
           }
           bgMusic.volume = volume;
         }, 100);
-
+        
       }
-
+      
+      e.preventDefault();
+      
       paper.style.zIndex = highestZ;
       highestZ++;
 
