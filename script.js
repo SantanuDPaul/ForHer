@@ -1,3 +1,33 @@
+const heartContainer = document.getElementById("floatingHearts");
+
+function createHeart() {
+
+  if (!heartContainer) return;
+
+  const heart = document.createElement("div");
+
+  heart.className = "floating-heart";
+
+  heart.innerHTML = "🤍";
+
+  heart.style.left = Math.random() * 100 + "vw";
+
+  heart.style.animationDuration = 10 + Math.random() * 8 + "s";
+
+  heart.style.fontSize = 10 + Math.random() * 8 + "px";
+
+  heartContainer.appendChild(heart);
+
+  setTimeout(() => {
+
+    heart.remove();
+
+  }, 18000);
+
+}
+
+setInterval(createHeart, 4000);
+
 const bgMusic = document.getElementById("bgMusic");
 
 let musicStarted = false;
@@ -9,9 +39,6 @@ class Paper {
   constructor() {
 
     this.holdingPaper = false;
-
-    this.pointerStartX = 0;
-    this.pointerStartY = 0;
 
     this.pointerX = 0;
     this.pointerY = 0;
@@ -42,19 +69,21 @@ class Paper {
 
       this.holdingPaper = true;
 
+      e.preventDefault();
+
       if (!musicStarted) {
 
         musicStarted = true;
 
         bgMusic.volume = 0;
 
-        bgMusic.play();
+        bgMusic.play().catch(() => {});
 
         let volume = 0;
 
         const fadeIn = setInterval(() => {
           volume += 0.02;
-          if (volume < 0.4) {
+          if (volume >= 0.4) {
             volume = 0.4;
             clearInterval(fadeIn);
           }
@@ -66,9 +95,6 @@ class Paper {
       paper.style.zIndex = highestZ;
       highestZ++;
 
-      this.pointerStartX = e.clientX;
-      this.pointerStartY = e.clientY;
-
       this.prevPointerX = e.clientX;
       this.prevPointerY = e.clientY;
     });
@@ -76,6 +102,8 @@ class Paper {
     document.addEventListener('pointermove', (e) => {
 
       if (!this.holdingPaper) return;
+
+      e.preventDefault();
 
       this.pointerX = e.clientX;
       this.pointerY = e.clientY;
@@ -95,7 +123,9 @@ class Paper {
      rotateZ(${this.rotation}deg)`;
     });
 
-    document.addEventListener('pointerup', () => {
+    document.addEventListener('pointerup', (e) => {
+
+      if (!this.holdingPaper) return;
 
       this.holdingPaper = false;
 
@@ -106,7 +136,7 @@ class Paper {
 
 }
 
-const papers = Array.from(document.querySelectorAll('.paper'));
+const papers = [...document.querySelectorAll(".paper")];
 
 papers.forEach(paper => {
 

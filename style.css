@@ -236,3 +236,49 @@ p {
   }
 
 }
+
+#floatingHearts{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:0;
+}
+
+.floating-heart{
+
+    position:absolute;
+
+    color:rgba(255,255,255,.18);
+
+    font-size:12px;
+
+    animation:floatHeart linear forwards;
+
+}
+
+@keyframes floatHeart{
+
+    from{
+
+        transform:translateY(0) scale(.8);
+
+        opacity:0;
+
+    }
+
+    15%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:translateY(-120vh) scale(1.2);
+
+        opacity:0;
+
+    }
+
+}
