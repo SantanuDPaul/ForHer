@@ -32,7 +32,29 @@ const bgMusic = document.getElementById("bgMusic");
 
 let musicStarted = false;
 
+function fadeMusic(targetVolume = 0.4, duration = 2000) {
+
+    const startTime = performance.now();
+    bgMusic.volume = 0;
+
+    function update(currentTime) {
+
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+
+        bgMusic.volume = targetVolume * progress;
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+
+    }
+
+    requestAnimationFrame(update);
+
+}
+
 function startMusic() {
+
     if (musicStarted) return;
 
     musicStarted = true;
@@ -41,29 +63,16 @@ function startMusic() {
 
     bgMusic.play().then(() => {
 
-        let volume = 0;
-
-        const fade = setInterval(() => {
-
-            volume += 0.02;
-
-            if (volume >= 0.4) {
-                volume = 0.4;
-                clearInterval(fade);
-            }
-
-            bgMusic.volume = volume;
-
-        }, 100);
+        // Give mobile browsers a moment to actually start decoding audio
+        setTimeout(() => {
+            fadeMusic();
+        }, 150);
 
     }).catch(console.error);
+
 }
 
-document.addEventListener(
-    "click",
-    startMusic,
-    { once: true }
-);
+document.addEventListener("pointerup",startMusic,{ once: true, passive: true });
 
 let highestZ = 1;
 
