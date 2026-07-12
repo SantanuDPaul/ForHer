@@ -1,3 +1,7 @@
+const bgMusic = document.getElementById("bgMusic");
+
+let musicStarted = false;
+
 let highestZ = 1;
 
 class Paper {
@@ -37,6 +41,16 @@ class Paper {
       if (paper.classList.contains('heart')) return;
 
       this.holdingPaper = true;
+
+      if (!musicStarted) {
+
+        musicStarted = true;
+
+        bgMusic.volume = 0.4;
+
+        bgMusic.play();
+
+      }
 
       paper.style.zIndex = highestZ;
       highestZ++;
@@ -102,7 +116,7 @@ if (heart && modal) {
   heart.addEventListener("click", () => {
 
 
-    modal.style.display = "flex";
+    modal.classList.add("show");
 
 
   });
@@ -114,16 +128,16 @@ if (closeBtn) {
   closeBtn.addEventListener("click", () => {
 
 
-    modal.style.display = "none";
+    modal.classList.remove("show");
 
 
   });
   modal.addEventListener("click", (e) => {
 
-  if (e.target === modal) {
-    modal.style.display = "none";
-  }
+    if (e.target === modal) {
+      modal.classList.remove("show");
+    }
 
-});
+  });
 
 }

@@ -121,14 +121,27 @@ p {
   position: fixed;
   inset: 0;
 
-  background: rgba(0, 0, 0, .75);
+  background: rgba(0,0,0,.75);
 
-  display: none;
+  display: flex;
 
   justify-content: center;
   align-items: center;
 
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity .45s ease;
+
   z-index: 99999;
+}
+
+#letterModal.show{
+
+  opacity:1;
+
+  visibility:visible;
+
 }
 
 .letter {
@@ -150,6 +163,22 @@ p {
 
   scrollbar-width: none;
   -ms-overflow-style: none;
+
+  opacity:0;
+
+transform:translateY(40px) scale(.96);
+
+transition:
+opacity .45s ease,
+transform .45s ease;
+
+}
+
+#letterModal.show .letter{
+
+    opacity:1;
+
+    transform:translateY(0) scale(1);
 
 }
 
