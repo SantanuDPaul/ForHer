@@ -23,7 +23,10 @@ document.addEventListener(
           bgMusic.volume = volume;
         }, 100);
       })
-      .catch(err => console.error(err));
+     .catch(err => {
+    console.error(err);
+    alert(err.message);
+});
   },
   { once: true }
 );
